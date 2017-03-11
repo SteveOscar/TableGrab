@@ -5,17 +5,14 @@ import {
   View,
   ScrollView,
   Text,
-  TextInput,
-  TouchableOpacity,
   Image,
-  Keyboard,
   LayoutAnimation
 } from 'react-native'
 import { connect } from 'react-redux'
 import Styles from './Styles/TGWelcomeScreenStyle'
 import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
+import LoginActions, { isLoggedIn } from '../Redux/LoginRedux'
 import I18n from 'react-native-i18n'
 
 import RoundedButton from '../Components/RoundedButton'
@@ -37,6 +34,7 @@ class LoginScreen extends React.Component {
   }
 
   render () {
+    const { loggedIn } = this.props
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
@@ -49,7 +47,7 @@ class LoginScreen extends React.Component {
           </Text>
         </View>
         <View style={Styles.welcomeSection}>
-          <RoundedButton onPress={NavigationActions.presentationScreen}>Log In</RoundedButton>
+          {loggedIn ? this.renderLogoutButton() : this.renderLoginButton()}
         </View>
         <View style={Styles.welcomeSection}>
           <RoundedButton onPress={NavigationActions.presentationScreen}>Sign Up</RoundedButton>
@@ -59,15 +57,33 @@ class LoginScreen extends React.Component {
     )
   }
 
+  renderLoginButton () {
+    return (
+      <RoundedButton onPress={NavigationActions.login}>
+        {I18n.t('signIn')}
+      </RoundedButton>
+    )
+  }
+
+  renderLogoutButton () {
+    return (
+      <RoundedButton onPress={this.props.logout}>
+        {I18n.t('logOut')}
+      </RoundedButton>
+    )
+  }
+
 }
 
 const mapStateToProps = (state) => {
   return {
+    loggedIn: isLoggedIn(state.login)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    logout: () => dispatch(LoginActions.logout())
   }
 }
 
