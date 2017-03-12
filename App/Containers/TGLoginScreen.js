@@ -47,17 +47,21 @@ class TGLoginScreen extends React.Component {
       username: '',
       password: '',
       visibleHeight: Metrics.screenHeight,
-      topLogo: { width: Metrics.screenWidth }
+      topLogo: { width: Metrics.screenWidth },
+      error: ''
     }
     this.isAttempting = false
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps (newProps, newState) {
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      console.log('SHOULD REDIRECT!!!!!!!!!!!!!')
-      NavigationActions.userscreen()
+      if(newProps.error !== "WRONG") {
+        NavigationActions.userscreen()
+      } else {
+        NavigationActions.pop()
+      }
     }
   }
 
@@ -173,7 +177,8 @@ class TGLoginScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching
+    fetching: state.login.fetching,
+    error: state.login.error
   }
 }
 

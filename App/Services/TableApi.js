@@ -27,6 +27,10 @@ const create = (baseURL = 'http://localhost:3000') => {
   console.log('IN TABLE API!!!')
   const login = (email, password) => api.post('users/login', { email: email, password: password })
 
+  const getUserData = (email, password) => {
+    api.post('users/login', { email: email, password: password })
+  }
+
   return {
     login
   }

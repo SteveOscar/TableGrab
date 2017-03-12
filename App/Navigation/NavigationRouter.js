@@ -43,12 +43,13 @@ class NavigationRouter extends Component {
             <Scene key='mapviewExample' component={MapviewExample} title='Mapview Example' />
             <Scene key='apiTesting' component={APITestingScreen} title='API Testing' />
             <Scene key='theme' component={ThemeScreen} title='Theme' />
-            <Scene key='login' component={TGLoginScreen} title='Login' hideNavBar />
-            <Scene key='userscreen' component={TGUserScreen} title='User Screen' />
+
+            <Scene key='login' component={TGLoginScreen} title='Login'  />
+            <Scene key='userscreen' component={TGUserScreen} title='User Screen' renderLeftButton={NavItems.hamburgerButton} type="reset"/>
+            <Scene initial key='welcomeScreen' component={TGWelcomeScreen} title='Welcome' renderLeftButton={NavItems.hamburgerButton}/>
 
             {/* Custom navigation bar example */}
             <Scene key='deviceInfo' component={DeviceInfoScreen} title='Device Info' />
-            <Scene initial key='welcomeScreen' component={TGWelcomeScreen} title='Welcome' renderLeftButton={NavItems.hamburgerButton}/>
           </Scene>
         </Scene>
       </Router>
