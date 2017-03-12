@@ -29,7 +29,7 @@ class TGLoginScreen extends React.Component {
   props: TGLoginScreenProps
 
   state: {
-    username: string,
+    email: string,
     password: string,
     visibleHeight: number,
     topLogo: {
@@ -44,7 +44,7 @@ class TGLoginScreen extends React.Component {
   constructor (props: TGLoginScreenProps) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
@@ -97,14 +97,14 @@ class TGLoginScreen extends React.Component {
   }
 
   handlePressLogin = () => {
-    const { username, password } = this.state
+    const { email, password } = this.state
     this.isAttempting = true
     // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(username, password)
+    this.props.attemptLogin(email, password)
   }
 
   handleChangeUsername = (text) => {
-    this.setState({ username: text })
+    this.setState({ email: text })
   }
 
   handleChangePassword = (text) => {
@@ -112,7 +112,7 @@ class TGLoginScreen extends React.Component {
   }
 
   render () {
-    const { username, password } = this.state
+    const { email, password } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -123,9 +123,9 @@ class TGLoginScreen extends React.Component {
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
             <TextInput
-              ref='username'
+              ref='email'
               style={textInputStyle}
-              value={username}
+              value={email}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
@@ -184,7 +184,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (username, password) => dispatch(LoginActions.loginRequest(username, password))
+    attemptLogin: (email, password) => dispatch(LoginActions.loginRequest(email, password))
   }
 }
 

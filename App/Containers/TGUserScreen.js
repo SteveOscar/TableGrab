@@ -40,7 +40,7 @@ class LoginScreen extends React.Component {
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <View style={Styles.welcomeSection}>
           <Text style={Styles.lightSectionText}>
-            HI USER!!
+            {this.props.user.email}
           </Text>
           <Text style={Styles.lightSectionText}>
             YOU HAVE LOGGED IN
@@ -76,8 +76,10 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const user = state.login.user
   return {
-    loggedIn: isLoggedIn(state.login)
+    loggedIn: isLoggedIn(state.login),
+    user: { id: user.id, email: user.email }
   }
 }
 

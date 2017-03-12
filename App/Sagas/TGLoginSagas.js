@@ -4,14 +4,14 @@ import { AsyncStorage } from 'react-native'
 
 // attempts to login
 export function * login (api, action) {
-  const { username, password } = action
+  const { email, password } = action
   console.log('IN TGLoginSaga!!')
   if (password === '') {
     // dispatch failure
     yield put(LoginActions.loginFailure('WRONG'))
   } else {
     // dispatch successful logins
-    const response = yield call(api.login, username, password)
+    const response = yield call(api.login, email, password)
     if (response.ok) {
       try {
         yield AsyncStorage.setItem('auth_token', response.data.auth_token);
@@ -20,7 +20,7 @@ export function * login (api, action) {
         console.log('ERROR: ', error)
         console.log('Error saving token: ', response.data.auth_token)
       }
-      yield put(LoginActions.loginSuccess(username))
+      yield put(LoginActions.loginSuccess(response.data))
     } else {
       yield put(LoginActions.loginFailure('WRONG'))
     }
