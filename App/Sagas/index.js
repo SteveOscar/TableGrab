@@ -1,6 +1,7 @@
 import { takeLatest } from 'redux-saga'
 // import API from '../Services/Api'
-import API from '../Services/TableApi'
+import API from '../Services/Api'
+import TableAPI from '../Services/TableApi'
 import FixtureAPI from '../Services/FixtureApi'
 import DebugSettings from '../Config/DebugSettings'
 
@@ -24,6 +25,7 @@ import { openScreen } from './OpenScreenSagas'
 // The API we use is only used from Sagas, so we create it here and pass along
 // to the sagas which need it.
 const api = DebugSettings.useFixtures ? FixtureAPI : API.create()
+const TableApi = DebugSettings.useFixtures ? FixtureAPI : TableAPI.create()
 
 /* ------------- Connect Types To Sagas ------------- */
 
@@ -35,7 +37,7 @@ export default function * root () {
     takeLatest(OpenScreenTypes.OPEN_SCREEN, openScreen),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
+    takeLatest(LoginTypes.LOGIN_REQUEST, login, TableApi),
     takeLatest(TemperatureTypes.TEMPERATURE_REQUEST, getTemperature, api)
   ]
 }
