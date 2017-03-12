@@ -51,6 +51,12 @@ const ApplicationStyles = {
       textAlign: 'center',
       fontWeight: 'bold'
     },
+    errorText: {
+      color: Colors.bloodOrange,
+      marginVertical: Metrics.smallMargin,
+      textAlign: 'center',
+      fontWeight: 'bold'
+    },
     subtitle: {
       color: Colors.snow,
       padding: Metrics.smallMargin,

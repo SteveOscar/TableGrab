@@ -42,8 +42,8 @@ class LoginScreen extends React.Component {
           <Text style={Styles.lightSectionText}>
             Welcome to TableGrab
           </Text>
-          <Text style={Styles.lightSectionText}>
-            Log in or Sign up...
+          <Text style={Styles.errorText}>
+            {this.renderErrors()}
           </Text>
         </View>
         <View style={Styles.welcomeSection}>
@@ -55,6 +55,15 @@ class LoginScreen extends React.Component {
 
       </ScrollView>
     )
+  }
+
+  renderErrors() {
+    const { error } = this.props
+    if(error) {
+      return 'Login Failed'
+    } else {
+      return null
+    }
   }
 
   renderLoginButton () {
@@ -77,7 +86,8 @@ class LoginScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    loggedIn: isLoggedIn(state.login)
+    loggedIn: isLoggedIn(state.login),
+    error: state.login.error
   }
 }
 

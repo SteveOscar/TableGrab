@@ -53,7 +53,7 @@ class TGLoginScreen extends React.Component {
     this.isAttempting = false
   }
 
-  componentWillReceiveProps (newProps, newState) {
+  componentWillReceiveProps (newProps) {
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.fetching) {
