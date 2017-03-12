@@ -56,7 +56,8 @@ class TGLoginScreen extends React.Component {
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      NavigationActions.pop()
+      console.log('SHOULD REDIRECT!!!!!!!!!!!!!')
+      NavigationActions.userscreen()
     }
   }
 
