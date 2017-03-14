@@ -120,6 +120,9 @@ class TGLoginScreen extends React.Component {
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
+        <Text style={GlobalStyles.errorText} >
+          Restaurant Log In
+        </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
@@ -169,10 +172,6 @@ class TGLoginScreen extends React.Component {
             </TouchableOpacity>
           </View>
         </View>
-
-        <Text style={GlobalStyles.linkText} onPress={NavigationActions.restaurantLogIn}>
-          Restaurant Log In
-        </Text>
 
       </ScrollView>
     )

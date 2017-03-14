@@ -50,5 +50,8 @@ export default StyleSheet.create({
   topLogo: {
     alignSelf: 'center',
     resizeMode: 'contain'
+  },
+  linkText: {
+    color: 'white'
   }
 })
