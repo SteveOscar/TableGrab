@@ -12,26 +12,27 @@ import {
   LayoutAnimation
 } from 'react-native'
 import { connect } from 'react-redux'
-import Styles from './Styles/LoginScreenStyle'
+import Styles from './Styles/UserSignUpScreenStyle'
 import GlobalStyles from './Styles/AllComponentsScreenStyle'
-import {Images, Metrics} from '../Themes'
-import LoginActions from '../Redux/LoginRedux'
+import { Metrics } from '../Themes'
+import SignUpActions from '../Redux/SignUpRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
 
-type RestaurantLogInProps = {
+type UserSignUpScreenProps = {
   dispatch: () => any,
   fetching: boolean,
-  attemptLogin: () => void
+  attemptUserSignUp: () => void
 }
 
-class RestaurantLogIn extends React.Component {
+class UserSignUpScreen extends React.Component {
 
-  props: RestaurantLogInProps
+  props: UserSignUpScreenProps
 
   state: {
     email: string,
     password: string,
+    name: string,
     visibleHeight: number,
     topLogo: {
       width: number
@@ -42,11 +43,12 @@ class RestaurantLogIn extends React.Component {
   keyboardDidShowListener: Object
   keyboardDidHideListener: Object
 
-  constructor (props: RestaurantLogInProps) {
+  constructor (props: UserSignUpScreenProps) {
     super(props)
     this.state = {
       email: '',
       password: '',
+      name: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
       error: ''
@@ -56,10 +58,11 @@ class RestaurantLogIn extends React.Component {
 
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
-    // Did the login attempt complete?
+    // Did the signUp attempt complete?
     if (this.isAttempting && !newProps.fetching) {
       if(newProps.error !== "WRONG") {
-        NavigationActions.userscreen()
+        // NavigationActions.userscreen()
+        console.log('SOME ERROR')
       } else {
         NavigationActions.pop()
       }
@@ -97,14 +100,14 @@ class RestaurantLogIn extends React.Component {
     })
   }
 
-  handlePressLogin = () => {
-    const { email, password } = this.state
+  handlePressSignUp = () => {
+    const { email, password, name } = this.state
     this.isAttempting = true
-    // attempt a login - a saga is listening to pick it up from here.
-    this.props.attemptLogin(email, password)
+    // attempt a signUp - a saga is listening to pick it up from here.
+    this.props.attemptUserSignUp(email, password, name)
   }
 
-  handleChangeUsername = (text) => {
+  handleChangeEmail = (text) => {
     this.setState({ email: text })
   }
 
@@ -112,20 +115,40 @@ class RestaurantLogIn extends React.Component {
     this.setState({ password: text })
   }
 
+  handleChangeName = (text) => {
+    this.setState({ name: text })
+  }
+
   render () {
-    const { email, password } = this.state
+    const { email, password, name } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
-        <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <Text style={GlobalStyles.errorText} >
-          Restaurant Log In
+          New User Sign Up
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
+            <Text style={Styles.rowLabel}>name</Text>
+            <TextInput
+              ref='name'
+              style={textInputStyle}
+              value={name}
+              editable={editable}
+              keyboardType='default'
+              returnKeyType='next'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={this.handleChangeName}
+              underlineColorAndroid='transparent'
+              onSubmitEditing={() => this.refs.password.focus()}
+              placeholder='carl carl' />
+          </View>
+
+          <View style={Styles.row}>
+            <Text style={Styles.rowLabel}>email</Text>
             <TextInput
               ref='email'
               style={textInputStyle}
@@ -135,10 +158,10 @@ class RestaurantLogIn extends React.Component {
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={this.handleChangeUsername}
+              onChangeText={this.handleChangeEmail}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
+              placeholder='someone@somewhere.com' />
           </View>
 
           <View style={Styles.row}>
@@ -155,19 +178,19 @@ class RestaurantLogIn extends React.Component {
               secureTextEntry
               onChangeText={this.handleChangePassword}
               underlineColorAndroid='transparent'
-              onSubmitEditing={this.handlePressLogin}
-              placeholder={I18n.t('password')} />
+              onSubmitEditing={this.handlePressSignUp}
+              placeholder='clever_password2!$' />
           </View>
 
           <View style={[Styles.loginRow]}>
-            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressLogin}>
+            <TouchableOpacity style={Styles.loginButtonWrapper} onPress={this.handlePressSignUp}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('signIn')}</Text>
+                <Text style={Styles.loginText}>Sign Up</Text>
               </View>
             </TouchableOpacity>
             <TouchableOpacity style={Styles.loginButtonWrapper} onPress={NavigationActions.pop}>
               <View style={Styles.loginButton}>
-                <Text style={Styles.loginText}>{I18n.t('cancel')}</Text>
+                <Text style={Styles.loginText}>Cancel</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -188,8 +211,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptLogin: (email, password) => dispatch(LoginActions.loginRequest(email, password))
+    attemptUserSignUp: (email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RestaurantLogIn)
+export default connect(mapStateToProps, mapDispatchToProps)(UserSignUpScreen)

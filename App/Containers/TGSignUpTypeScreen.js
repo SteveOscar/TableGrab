@@ -44,10 +44,10 @@ class LoginScreen extends React.Component {
           </Text>
         </View>
         <View style={Styles.welcomeSection}>
-          <RoundedButton onPress={NavigationActions.presentationScreen}>User</RoundedButton>
+          <RoundedButton onPress={NavigationActions.userSignUpScreen}>User</RoundedButton>
         </View>
         <View style={Styles.welcomeSection}>
-          <RoundedButton onPress={NavigationActions.presentationScreen}>Restaurant</RoundedButton>
+          <RoundedButton onPress={NavigationActions.restaurantSignUpScreen}>Restaurant</RoundedButton>
         </View>
 
       </ScrollView>

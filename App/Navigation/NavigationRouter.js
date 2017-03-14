@@ -23,7 +23,8 @@ import DeviceInfoScreen from '../Containers/DeviceInfoScreen'
 import TGWelcomeScreen from '../Containers/TGWelcomeScreen'
 import TGUserScreen from '../Containers/TGUserScreen'
 import TGSignUpTypeScreen from '../Containers/TGSignUpTypeScreen'
-import TGRestaurantLogIn from '../Containers/TGRestaurantLogIn'
+import RestaurantLogIn from '../Containers/TGRestaurantLogIn'
+import UserSignUpScreen from '../Containers/TGUserSignUpScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -48,7 +49,8 @@ class NavigationRouter extends Component {
 
             <Scene key='signUpType' component={TGSignUpTypeScreen} title='Account Type'  />
             <Scene key='login' component={TGLoginScreen} title='Login'  />
-            <Scene key='restaurantLogIn' component={TGRestaurantLogIn} title='Restaurant Log In'  />
+            <Scene key='userSignUpScreen' component={UserSignUpScreen} title='Sign Up'  />
+            <Scene key='restaurantLogIn' component={RestaurantLogIn} title='Restaurant Log In'  />
             <Scene key='userscreen' component={TGUserScreen} title='User Screen' renderLeftButton={NavItems.hamburgerButton} type="reset"/>
             <Scene initial key='welcomeScreen' component={TGWelcomeScreen} title='Welcome' renderLeftButton={NavItems.hamburgerButton}/>
 
