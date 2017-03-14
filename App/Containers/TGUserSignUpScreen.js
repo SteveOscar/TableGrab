@@ -104,7 +104,7 @@ class UserSignUpScreen extends React.Component {
     const { email, password, name } = this.state
     this.isAttempting = true
     // attempt a signUp - a saga is listening to pick it up from here.
-    this.props.attemptUserSignUp(email, password, name)
+    this.props.attemptUserSignUp(name, email, password)
   }
 
   handleChangeEmail = (text) => {
@@ -211,7 +211,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptUserSignUp: (email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
+    attemptUserSignUp: (name, email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
   }
 }
 
