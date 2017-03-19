@@ -22,7 +22,7 @@ export function * login (api, action) {
       }
       yield put(LoginActions.loginSuccess(response.data))
     } else {
-      yield put(LoginActions.loginFailure('WRONG'))
+      yield put(LoginActions.loginFailure(response.data.error))
     }
   }
 }

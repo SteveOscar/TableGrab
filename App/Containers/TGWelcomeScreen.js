@@ -60,7 +60,8 @@ class LoginScreen extends React.Component {
   renderErrors() {
     const { error } = this.props
     if(error) {
-      return 'Login Failed'
+      console.log('ERROR: ', error)
+      return error
     } else {
       return null
     }

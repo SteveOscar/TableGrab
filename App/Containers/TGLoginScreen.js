@@ -59,9 +59,11 @@ class TGLoginScreen extends React.Component {
     this.forceUpdate()
     // Did the login attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      if(newProps.error !== "WRONG") {
+      if(!newProps.error) {
+        // Login successful, show user screen
         NavigationActions.userscreen()
       } else {
+        // Login error, surface errors
         NavigationActions.welcomeScreen()
       }
     }
