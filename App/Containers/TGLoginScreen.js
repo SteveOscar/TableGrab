@@ -125,7 +125,7 @@ class TGLoginScreen extends React.Component {
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>{I18n.t('username')}</Text>
+            <Text style={Styles.rowLabel}>email</Text>
             <TextInput
               ref='email'
               style={textInputStyle}
@@ -138,7 +138,7 @@ class TGLoginScreen extends React.Component {
               onChangeText={this.handleChangeUsername}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder={I18n.t('username')} />
+              placeholder='yourname@yourdomain.com' />
           </View>
 
           <View style={Styles.row}>
@@ -156,7 +156,7 @@ class TGLoginScreen extends React.Component {
               onChangeText={this.handleChangePassword}
               underlineColorAndroid='transparent'
               onSubmitEditing={this.handlePressLogin}
-              placeholder={I18n.t('password')} />
+              placeholder='your password' />
           </View>
 
           <View style={[Styles.loginRow]}>
