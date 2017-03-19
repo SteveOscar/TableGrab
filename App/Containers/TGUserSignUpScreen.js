@@ -60,11 +60,11 @@ class UserSignUpScreen extends React.Component {
     this.forceUpdate()
     // Did the signUp attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      if(newProps.error !== "WRONG") {
+      if(newProps.error === "WRONG") {
         // NavigationActions.userscreen()
         console.log('SOME ERROR')
       } else {
-        NavigationActions.pop()
+        NavigationActions.signUpConfirmation()
       }
     }
   }
@@ -204,8 +204,9 @@ class UserSignUpScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.login.fetching,
-    error: state.login.error
+    fetching: state.signUp.fetching,
+    error: state.signUp.error,
+    message: state.signUp.message
   }
 }
 

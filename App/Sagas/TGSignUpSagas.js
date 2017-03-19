@@ -14,13 +14,11 @@ export function * signUp (api, action) {
     const response = yield call(api.signUp, name, email, password)
     if (response.ok) {
       try {
-        yield AsyncStorage.setItem('auth_token', response.data.auth_token);
-        console.log('Token saved: ', response.data.auth_token)
+        console.log('Sign Up Successful: ', response.data.status)
       } catch (error) {
         console.log('ERROR: ', error)
-        console.log('Error saving token: ', response.data.auth_token)
       }
-      yield put(SignUpActions.signUpSuccess(response.data))
+      yield put(SignUpActions.signUpSuccess(response.data.status))
     } else {
       yield put(SignUpActions.signUpFailure('WRONG'))
     }

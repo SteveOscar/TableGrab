@@ -49,7 +49,8 @@ class TGLoginScreen extends React.Component {
       password: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
-      error: ''
+      error: '',
+      message: ''
     }
     this.isAttempting = false
   }
@@ -61,7 +62,7 @@ class TGLoginScreen extends React.Component {
       if(newProps.error !== "WRONG") {
         NavigationActions.userscreen()
       } else {
-        NavigationActions.pop()
+        NavigationActions.welcomeScreen()
       }
     }
   }
@@ -183,7 +184,7 @@ class TGLoginScreen extends React.Component {
 const mapStateToProps = (state) => {
   return {
     fetching: state.login.fetching,
-    error: state.login.error
+    error: state.login.error,
   }
 }
 
