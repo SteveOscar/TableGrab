@@ -12,22 +12,22 @@ import {
   LayoutAnimation
 } from 'react-native'
 import { connect } from 'react-redux'
-import Styles from './Styles/UserSignUpScreenStyle'
+import Styles from './Styles/RestaurantSignUpScreenStyle'
 import GlobalStyles from './Styles/AllComponentsScreenStyle'
 import { Metrics } from '../Themes'
 import SignUpActions from '../Redux/SignUpRedux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 import I18n from 'react-native-i18n'
 
-type UserSignUpScreenProps = {
+type RestaurantSignUpScreenProps = {
   dispatch: () => any,
   fetching: boolean,
-  attemptUserSignUp: () => void
+  attemptRestaurantSignUp: () => void
 }
 
-class UserSignUpScreen extends React.Component {
+class RestaurantSignUpScreen extends React.Component {
 
-  props: UserSignUpScreenProps
+  props: RestaurantSignUpScreenProps
 
   state: {
     email: string,
@@ -43,7 +43,7 @@ class UserSignUpScreen extends React.Component {
   keyboardDidShowListener: Object
   keyboardDidHideListener: Object
 
-  constructor (props: UserSignUpScreenProps) {
+  constructor (props: RestaurantSignUpScreenProps) {
     super(props)
     this.state = {
       email: '',
@@ -105,7 +105,7 @@ class UserSignUpScreen extends React.Component {
     const { email, password, name, password_confirmation } = this.state
     this.isAttempting = true
     // attempt a signUp - a saga is listening to pick it up from here.
-    this.props.attemptUserSignUp(name, email, password)
+    this.props.attemptRestaurantSignUp(name, email, password)
   }
 
   handleChangeEmail = (text) => {
@@ -132,11 +132,11 @@ class UserSignUpScreen extends React.Component {
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
         <Text style={GlobalStyles.errorText} >
-          New User Sign Up
+          Create a restaurant admin account
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
-            <Text style={Styles.rowLabel}>Full Name</Text>
+            <Text style={Styles.rowLabel}>Contact Name</Text>
             <TextInput
               ref='name'
               style={textInputStyle}
@@ -149,7 +149,7 @@ class UserSignUpScreen extends React.Component {
               onChangeText={this.handleChangeName}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
-              placeholder='carl carl' />
+              placeholder='(Restaurant Manager or Owner)' />
           </View>
 
           <View style={Styles.row}>
@@ -235,8 +235,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptUserSignUp: (name, email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
+    attemptRestaurantSignUp: (name, email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserSignUpScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantSignUpScreen)

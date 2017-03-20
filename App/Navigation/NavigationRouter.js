@@ -25,6 +25,7 @@ import TGUserScreen from '../Containers/TGUserScreen'
 import TGSignUpTypeScreen from '../Containers/TGSignUpTypeScreen'
 import RestaurantLogIn from '../Containers/TGRestaurantLogIn'
 import UserSignUpScreen from '../Containers/TGUserSignUpScreen'
+import RestaurantSignUpScreen from '../Containers/TGRestaurantSignUpScreen'
 import TGSignUpConfirmationScreen from '../Containers/TGSignUpConfirmationScreen'
 
 /* **************************
@@ -50,7 +51,8 @@ class NavigationRouter extends Component {
 
             <Scene key='signUpType' component={TGSignUpTypeScreen} title='Account Type'  />
             <Scene key='login' component={TGLoginScreen} title='Login'  />
-            <Scene key='userSignUpScreen' component={UserSignUpScreen} title='Sign Up'  />
+            <Scene key='userSignUpScreen' component={UserSignUpScreen} title='Create User Account'  />
+            <Scene key='restaurantSignUpScreen' component={RestaurantSignUpScreen} title='Sign Up'  />
             <Scene key='restaurantLogIn' component={RestaurantLogIn} title='Restaurant Log In'  />
             <Scene key='userscreen' component={TGUserScreen} title='User Screen' renderLeftButton={NavItems.hamburgerButton} type="reset"/>
             <Scene key='signUpConfirmation' component={TGSignUpConfirmationScreen} title='Sign Up Confirmation' renderLeftButton={NavItems.hamburgerButton} />
