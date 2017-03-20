@@ -12,7 +12,7 @@ import {
   LayoutAnimation
 } from 'react-native'
 import { connect } from 'react-redux'
-import Styles from './Styles/RestaurantSignUpScreenStyle'
+import Styles from './Styles/UserSignUpScreenStyle'
 import GlobalStyles from './Styles/AllComponentsScreenStyle'
 import { Metrics } from '../Themes'
 import SignUpActions from '../Redux/SignUpRedux'
@@ -102,10 +102,11 @@ class RestaurantSignUpScreen extends React.Component {
   }
 
   handlePressSignUp = () => {
-    const { email, password, name, password_confirmation } = this.state
     this.isAttempting = true
+    let payload = this.state
+    payload.is_restaurant = true
     // attempt a signUp - a saga is listening to pick it up from here.
-    this.props.attemptRestaurantSignUp(name, email, password)
+    this.props.attemptRestaurantSignUp(payload)
   }
 
   handleChangeEmail = (text) => {
@@ -235,7 +236,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptRestaurantSignUp: (name, email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
+    attemptRestaurantSignUp: (payload) => dispatch(SignUpActions.signUpRequest(payload))
   }
 }
 

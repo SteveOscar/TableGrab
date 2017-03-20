@@ -4,14 +4,15 @@ import { AsyncStorage } from 'react-native'
 
 // attempts to sign up
 export function * signUp (api, action) {
-  const { name, email, password } = action
+  const { payload } = action
   console.log('IN TGSignUpSaga!!')
-  if (password === '') {
+  if (payload.password === '') {
     // dispatch failure
     yield put(SignUpActions.signUpFailure('WRONG'))
   } else {
+    debugger
     // dispatch successful signs up
-    const response = yield call(api.signUp, name, email, password)
+    const response = yield call(api.signUp, payload)
     if (response.ok) {
       try {
         console.log('Sign Up Successful: ', response.data.status)

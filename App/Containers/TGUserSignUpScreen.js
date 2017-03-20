@@ -32,7 +32,7 @@ class UserSignUpScreen extends React.Component {
   state: {
     email: string,
     password: string,
-    name: string,
+    username: string,
     visibleHeight: number,
     topLogo: {
       width: number
@@ -49,7 +49,7 @@ class UserSignUpScreen extends React.Component {
       email: '',
       password: '',
       password_confirmation: '',
-      name: '',
+      username: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
       error: ''
@@ -102,10 +102,11 @@ class UserSignUpScreen extends React.Component {
   }
 
   handlePressSignUp = () => {
-    const { email, password, name, password_confirmation } = this.state
     this.isAttempting = true
+    let payload = this.state
+    payload.is_restaurant = false
     // attempt a signUp - a saga is listening to pick it up from here.
-    this.props.attemptUserSignUp(name, email, password)
+    this.props.attemptUserSignUp(payload)
   }
 
   handleChangeEmail = (text) => {
@@ -120,12 +121,17 @@ class UserSignUpScreen extends React.Component {
     this.setState({ password_confirmation: text })
   }
 
-  handleChangeName = (text) => {
-    this.setState({ name: text })
+  handleChangeUsername = (text) => {
+    console.log('USERNAME CHANGED')
+    this.setState({ username: text })
+  }
+
+  handleFocus() {
+    console.log('USERNAME FOCUSED')
   }
 
   render () {
-    const { email, password, name, password_confirmation } = this.state
+    const { email, password, username, password_confirmation } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -138,15 +144,16 @@ class UserSignUpScreen extends React.Component {
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>Full Name</Text>
             <TextInput
-              ref='name'
+              ref='username'
               style={textInputStyle}
-              value={name}
+              value={username}
               editable={editable}
               keyboardType='default'
               returnKeyType='next'
               autoCapitalize='none'
               autoCorrect={false}
-              onChangeText={this.handleChangeName}
+              onFocus={() => this.handleFocus()}
+              onChangeText={this.handleChangeUsername}
               underlineColorAndroid='transparent'
               onSubmitEditing={() => this.refs.password.focus()}
               placeholder='carl carl' />
@@ -226,8 +233,9 @@ class UserSignUpScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  // TODO: Line 238 should be state.signUp.fetching
   return {
-    fetching: state.signUp.fetching,
+    fetching: false,
     error: state.signUp.error,
     message: state.signUp.message
   }
@@ -235,7 +243,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    attemptUserSignUp: (name, email, password) => dispatch(SignUpActions.signUpRequest(name, email, password))
+    attemptUserSignUp: (payload) => dispatch(SignUpActions.signUpRequest(payload))
   }
 }
 
