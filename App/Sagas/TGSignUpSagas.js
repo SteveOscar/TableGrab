@@ -10,7 +10,6 @@ export function * signUp (api, action) {
     // dispatch failure
     yield put(SignUpActions.signUpFailure('WRONG'))
   } else {
-    debugger
     // dispatch successful signs up
     const response = yield call(api.signUp, payload)
     if (response.ok) {
@@ -21,7 +20,7 @@ export function * signUp (api, action) {
       }
       yield put(SignUpActions.signUpSuccess(response.data.status))
     } else {
-      yield put(SignUpActions.signUpFailure('WRONG'))
+      yield put(SignUpActions.signUpFailure(response.data.errors))
     }
   }
 }

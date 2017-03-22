@@ -61,9 +61,9 @@ class UserSignUpScreen extends React.Component {
     this.forceUpdate()
     // Did the signUp attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      if(newProps.error === "WRONG") {
-        // NavigationActions.userscreen()
-        console.log('SOME ERROR')
+      if(newProps.error.length) {
+        console.log('ERROR ', newProps.error)
+        this.setState({ error: newProps.error[0] })
       } else {
         NavigationActions.signUpConfirmation()
       }
@@ -128,6 +128,16 @@ class UserSignUpScreen extends React.Component {
 
   handleFocus() {
     console.log('USERNAME FOCUSED')
+  }
+
+  renderErrors() {
+    const { error } = this.state
+    if(error) {
+      console.log('ERROR: ', error)
+      return error
+    } else {
+      return null
+    }
   }
 
   render () {
@@ -224,6 +234,9 @@ class UserSignUpScreen extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
+          <Text style={Styles.errorText}>
+            {this.renderErrors()}
+          </Text>
         </View>
 
       </ScrollView>
