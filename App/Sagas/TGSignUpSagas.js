@@ -8,7 +8,9 @@ export function * signUp (api, action) {
   console.log('IN TGSignUpSaga!!')
   if (payload.password === '') {
     // dispatch failure
-    yield put(SignUpActions.signUpFailure('WRONG'))
+    yield put(SignUpActions.signUpFailure(['Password Requred']))
+  } else if(payload.name === '') {
+    yield put(SignUpActions.signUpFailure(['Name Requred']))
   } else {
     // dispatch successful signs up
     const response = yield call(api.signUp, payload)

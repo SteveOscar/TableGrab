@@ -61,9 +61,9 @@ class RestaurantSignUpScreen extends React.Component {
     this.forceUpdate()
     // Did the signUp attempt complete?
     if (this.isAttempting && !newProps.fetching) {
-      if(newProps.error === "WRONG") {
+      if(newProps.error.length) {
         // NavigationActions.userscreen()
-        console.log('SOME ERROR')
+        this.setState({ error: newProps.error[0] })
       } else {
         NavigationActions.signUpConfirmation()
       }
@@ -125,6 +125,16 @@ class RestaurantSignUpScreen extends React.Component {
     this.setState({ name: text })
   }
 
+  renderErrors() {
+    const { error } = this.state
+    if(error) {
+      console.log('ERROR: ', error)
+      return error
+    } else {
+      return null
+    }
+  }
+
   render () {
     const { email, password, name, password_confirmation } = this.state
     const { fetching } = this.props
@@ -132,8 +142,11 @@ class RestaurantSignUpScreen extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
-        <Text style={GlobalStyles.errorText} >
+        <Text style={GlobalStyles.lightSectionText} >
           Create a restaurant admin account
+        </Text>
+        <Text style={Styles.errorText}>
+          {this.renderErrors()}
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>

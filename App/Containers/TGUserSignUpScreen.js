@@ -147,8 +147,11 @@ class UserSignUpScreen extends React.Component {
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
-        <Text style={GlobalStyles.errorText} >
+        <Text style={GlobalStyles.lightSectionText} >
           New User Sign Up
+        </Text>
+        <Text style={Styles.errorText}>
+          {this.renderErrors()}
         </Text>
         <View style={Styles.form}>
           <View style={Styles.row}>
@@ -234,9 +237,6 @@ class UserSignUpScreen extends React.Component {
               </View>
             </TouchableOpacity>
           </View>
-          <Text style={Styles.errorText}>
-            {this.renderErrors()}
-          </Text>
         </View>
 
       </ScrollView>
