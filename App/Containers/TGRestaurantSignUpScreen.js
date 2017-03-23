@@ -50,6 +50,7 @@ class RestaurantSignUpScreen extends React.Component {
       password: '',
       password_confirmation: '',
       name: '',
+      restuarant_name: '',
       visibleHeight: Metrics.screenHeight,
       topLogo: { width: Metrics.screenWidth },
       error: ''
@@ -60,12 +61,13 @@ class RestaurantSignUpScreen extends React.Component {
   componentWillReceiveProps (newProps) {
     this.forceUpdate()
     // Did the signUp attempt complete?
+    debugger
     if (this.isAttempting && !newProps.fetching) {
-      if(newProps.error.length) {
+      if(newProps.error && newProps.error.length) {
         // NavigationActions.userscreen()
         this.setState({ error: newProps.error[0] })
       } else {
-        NavigationActions.signUpConfirmation()
+        NavigationActions.restaurantSignUpConfirmation()
       }
     }
   }
@@ -125,6 +127,10 @@ class RestaurantSignUpScreen extends React.Component {
     this.setState({ name: text })
   }
 
+  handleChangeRestaurantName = (text) => {
+    this.setState({ restuarant_name: text })
+  }
+
   renderErrors() {
     const { error } = this.state
     if(error) {
@@ -136,7 +142,7 @@ class RestaurantSignUpScreen extends React.Component {
   }
 
   render () {
-    const { email, password, name, password_confirmation } = this.state
+    const { email, password, name, password_confirmation, restuarant_name } = this.state
     const { fetching } = this.props
     const editable = !fetching
     const textInputStyle = editable ? Styles.textInput : Styles.textInputReadonly
@@ -149,6 +155,23 @@ class RestaurantSignUpScreen extends React.Component {
           {this.renderErrors()}
         </Text>
         <View style={Styles.form}>
+          <View style={Styles.row}>
+            <Text style={Styles.rowLabel}>Restaurant Name</Text>
+            <TextInput
+              ref='restaurant_name'
+              style={textInputStyle}
+              value={restuarant_name}
+              editable={editable}
+              keyboardType='default'
+              returnKeyType='next'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={this.handleChangeRestaurantName}
+              underlineColorAndroid='transparent'
+              onSubmitEditing={() => this.refs.password.focus()}
+              placeholder="Restaurant" />
+          </View>
+
           <View style={Styles.row}>
             <Text style={Styles.rowLabel}>Contact Name</Text>
             <TextInput
@@ -241,7 +264,7 @@ class RestaurantSignUpScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    fetching: state.signUp.fetching,
+    fetching: false,
     error: state.signUp.error,
     message: state.signUp.message
   }

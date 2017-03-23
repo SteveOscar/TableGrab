@@ -27,6 +27,7 @@ import RestaurantLogIn from '../Containers/TGRestaurantLogIn'
 import UserSignUpScreen from '../Containers/TGUserSignUpScreen'
 import RestaurantSignUpScreen from '../Containers/TGRestaurantSignUpScreen'
 import TGSignUpConfirmationScreen from '../Containers/TGSignUpConfirmationScreen'
+import RestaurantSignUpConfirmationScreen from '../Containers/TGRestaurantSignUpConfirmationScreen'
 
 /* **************************
 * Documentation: https://github.com/aksonov/react-native-router-flux
@@ -56,6 +57,7 @@ class NavigationRouter extends Component {
             <Scene key='restaurantLogIn' component={RestaurantLogIn} title='Restaurant Log In'  />
             <Scene key='userscreen' component={TGUserScreen} title='User Screen' renderLeftButton={NavItems.hamburgerButton} type="reset"/>
             <Scene key='signUpConfirmation' component={TGSignUpConfirmationScreen} title='Sign Up Confirmation' renderLeftButton={NavItems.hamburgerButton} />
+            <Scene key='restaurantSignUpConfirmation' component={RestaurantSignUpConfirmationScreen} title='Account Pending Confirmation' renderLeftButton={NavItems.hamburgerButton} />
             <Scene initial key='welcomeScreen' component={TGWelcomeScreen} title='Welcome' renderLeftButton={NavItems.hamburgerButton} type="reset"/>
 
             {/* Custom navigation bar example */}

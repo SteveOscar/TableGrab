@@ -38,7 +38,7 @@ export const failure = (state: Object, { error }: Object) =>
   state.merge({ fetching: false, error })
 
 // we've logged out
-export const logout = (state: Object) => INITIAL_STATE
+export const signUp = (state: Object) => INITIAL_STATE
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -46,7 +46,7 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_UP_REQUEST]: request,
   [Types.SIGN_UP_SUCCESS]: success,
   [Types.SIGN_UP_FAILURE]: failure,
-  [Types.LOGOUT]: logout
+  [Types.LOGOUT]: signUp
 })
 
 /* ------------- Selectors ------------- */
