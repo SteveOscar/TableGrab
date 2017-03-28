@@ -40,37 +40,27 @@ class LoginScreen extends React.Component {
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <View style={Styles.welcomeSection}>
           <Text style={Styles.lightSectionText}>
-            Welcome to TableGrab
+            {this.props.user.email}
           </Text>
-          <Text style={Styles.errorText}>
-            {this.renderErrors()}
+          <Text style={Styles.lightSectionText}>
+            YOU HAVE LOGGED IN
           </Text>
         </View>
         <View style={Styles.welcomeSection}>
           {loggedIn ? this.renderLogoutButton() : this.renderLoginButton()}
         </View>
         <View style={Styles.welcomeSection}>
-          <RoundedButton onPress={NavigationActions.signUpType}>Sign Up</RoundedButton>
+          <RoundedButton onPress={NavigationActions.presentationScreen}>SOME BUTTON</RoundedButton>
         </View>
 
       </ScrollView>
     )
   }
 
-  renderErrors() {
-    const { error } = this.props
-    if(error) {
-      console.log('ERROR: ', error)
-      return error
-    } else {
-      return null
-    }
-  }
-
   renderLoginButton () {
     return (
       <RoundedButton onPress={NavigationActions.login}>
-        {I18n.t('signIn')}
+        Wrong button
       </RoundedButton>
     )
   }
@@ -78,7 +68,7 @@ class LoginScreen extends React.Component {
   renderLogoutButton () {
     return (
       <RoundedButton onPress={this.props.logout}>
-        {I18n.t('logOut')}
+        Correct button
       </RoundedButton>
     )
   }
@@ -86,9 +76,10 @@ class LoginScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  const user = state.login.user
   return {
     loggedIn: isLoggedIn(state.login),
-    error: state.login.error
+    user: { id: user.id, email: user.email }
   }
 }
 

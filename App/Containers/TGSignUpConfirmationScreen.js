@@ -17,7 +17,7 @@ import I18n from 'react-native-i18n'
 
 import RoundedButton from '../Components/RoundedButton'
 
-class LoginScreen extends React.Component {
+class SignUpConfirmationScreen extends React.Component {
   state: {
     visibleHeight: number,
     topLogo: {
@@ -25,7 +25,7 @@ class LoginScreen extends React.Component {
     }
   }
 
-  constructor (props: LoginScreenProps) {
+  constructor (props: SignUpConfirmationScreenProps) {
     super(props)
     this.state = {
       visibleHeight: Metrics.screenHeight,
@@ -34,68 +34,37 @@ class LoginScreen extends React.Component {
   }
 
   render () {
-    const { loggedIn } = this.props
     return (
       <ScrollView contentContainerStyle={{justifyContent: 'center'}} style={[Styles.container, {height: this.state.visibleHeight}]} keyboardShouldPersistTaps>
         <Image source={Images.logo} style={[Styles.topLogo, this.state.topLogo]} />
         <View style={Styles.welcomeSection}>
           <Text style={Styles.lightSectionText}>
-            Welcome to TableGrab
-          </Text>
-          <Text style={Styles.errorText}>
-            {this.renderErrors()}
+            Please check your email to confirm your account before logging in.
           </Text>
         </View>
         <View style={Styles.welcomeSection}>
-          {loggedIn ? this.renderLogoutButton() : this.renderLoginButton()}
+          <RoundedButton onPress={NavigationActions.login}>
+            {I18n.t('signIn')}
+          </RoundedButton>
         </View>
-        <View style={Styles.welcomeSection}>
+        {/* <View style={Styles.welcomeSection}>
           <RoundedButton onPress={NavigationActions.signUpType}>Sign Up</RoundedButton>
-        </View>
+        </View> */}
 
       </ScrollView>
     )
   }
-
-  renderErrors() {
-    const { error } = this.props
-    if(error) {
-      console.log('ERROR: ', error)
-      return error
-    } else {
-      return null
-    }
-  }
-
-  renderLoginButton () {
-    return (
-      <RoundedButton onPress={NavigationActions.login}>
-        {I18n.t('signIn')}
-      </RoundedButton>
-    )
-  }
-
-  renderLogoutButton () {
-    return (
-      <RoundedButton onPress={this.props.logout}>
-        {I18n.t('logOut')}
-      </RoundedButton>
-    )
-  }
-
 }
 
 const mapStateToProps = (state) => {
   return {
     loggedIn: isLoggedIn(state.login),
-    error: state.login.error
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(LoginActions.logout())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpConfirmationScreen)

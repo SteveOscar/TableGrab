@@ -1,9 +1,10 @@
 // @flow
 
 import { StyleSheet } from 'react-native'
-import { Colors, Metrics } from '../../Themes'
+import { Colors, Metrics, ApplicationStyles } from '../../Themes'
 
 export default StyleSheet.create({
+  ...ApplicationStyles.screen,
   container: {
     paddingTop: 70,
     backgroundColor: Colors.background
@@ -14,7 +15,7 @@ export default StyleSheet.create({
     borderRadius: 4
   },
   row: {
-    paddingVertical: Metrics.doubleBaseMargin,
+    paddingVertical: Metrics.baseMargin,
     paddingHorizontal: Metrics.doubleBaseMargin
   },
   rowLabel: {
@@ -22,7 +23,8 @@ export default StyleSheet.create({
   },
   textInput: {
     height: 40,
-    color: Colors.coal
+    color: Colors.coal,
+    backgroundColor: Colors.frost
   },
   textInputReadonly: {
     height: 40,

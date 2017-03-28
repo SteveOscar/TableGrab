@@ -39,6 +39,13 @@ const ApplicationStyles = {
       textAlign: 'center',
       fontWeight: 'bold'
     },
+    linkText: {
+      color: Colors.bloodOrange,
+      marginVertical: Metrics.smallMargin,
+      textAlign: 'center',
+      // fontWeight: 'bold',
+      textDecorationLine: 'underline'
+    },
     darkSectionText: {
       color: Colors.coal,
       marginVertical: Metrics.smallMargin,
@@ -47,6 +54,12 @@ const ApplicationStyles = {
     },
     lightSectionText: {
       color: Colors.snow,
+      marginVertical: Metrics.smallMargin,
+      textAlign: 'center',
+      fontWeight: 'bold'
+    },
+    errorText: {
+      color: Colors.bloodOrange,
       marginVertical: Metrics.smallMargin,
       textAlign: 'center',
       fontWeight: 'bold'
